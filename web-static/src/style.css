@@ -1,0 +1,187 @@
+:root {
+  font-family: "Noto Sans CJK SC", "Noto Sans SC", "Source Han Sans SC", "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  
+  /* 共用变量 */
+  --primary-color: #646cff;
+  --primary-color-hover: #535bf2;
+  
+  /* 主题变量将由类设置，不在root设置默认值以避免闪烁 */
+}
+
+/* HTML 根元素也需要设置背景色和过渡效果 */
+html {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* 浅色主题 - 护眼暖米色调 */
+.my-app-light {
+  color-scheme: light;
+  --text-color: #2d3748;
+  --bg-color: #faf8f5;
+  --surface-color: #f1ede7;
+  --border-color: #d6d3d1;
+  --shadow-color: rgba(0, 0, 0, 0.06);
+}
+
+/* 深色主题 */
+.my-app-dark {
+  color-scheme: dark;
+  --text-color: #f1f5f9;
+  --bg-color: #0f172a;
+  --surface-color: #1e293b;
+  --border-color: #334155;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+}
+
+/* 妈妈模式 - 图片毛玻璃特效（排除缩略图和大图查看器元素，避免与遮罩层冲突） */
+.mom-mode img:not(.thumbnail-image):not(.full-image),
+.mom-mode .cover img,
+.mom-mode .image-popover img,
+.mom-mode .popover img {
+  filter: blur(var(--mom-mode-blur)) !important;
+  transition: filter 0.3s ease;
+}
+
+/* 鼠标悬停时暂时清除模糊效果 */
+.mom-mode img:not(.thumbnail-image):not(.full-image):hover,
+.mom-mode .cover img:hover,
+.mom-mode .image-popover img:hover,
+.mom-mode .popover img:hover {
+  filter: blur(0px) !important;
+}
+
+/* 特殊处理：对于使用背景图片的缩略图，添加一个遮罩层 */
+.mom-mode .thumbnail-item,
+.mom-mode .thumbnail-gallery .thumbnail-item {
+  position: relative;
+}
+
+.mom-mode .thumbnail-item::before,
+.mom-mode .thumbnail-gallery .thumbnail-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* background: rgba(255, 255, 255, 0.8); */
+  backdrop-filter: blur(var(--mom-mode-blur));
+  border-radius: 2px;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.mom-mode .thumbnail-item:hover::before,
+.mom-mode .thumbnail-gallery .thumbnail-item:hover::before {
+  opacity: 0;
+}
+
+/* 深色主题下的妈妈模式遮罩 */
+.my-app-dark.mom-mode .thumbnail-item::before,
+.my-app-dark.mom-mode .thumbnail-gallery .thumbnail-item::before {
+  /* background: rgba(0, 0, 0, 0.8); */
+}
+
+/* 为所有可能包含敏感图片的元素添加模糊效果（排除缩略图和大图查看器，避免重复） */
+.mom-mode .gallery-item img,
+.mom-mode .gallery-preview img,
+.mom-mode .poster,
+.mom-mode .album-cover,
+.mom-mode .gallery-detail-container .cover img {
+  filter: blur(var(--mom-mode-blur)) !important;
+  transition: filter 0.3s ease;
+}
+
+.mom-mode .gallery-item img:hover,
+.mom-mode .gallery-preview img:hover,
+.mom-mode .poster:hover,
+.mom-mode .album-cover:hover,
+.mom-mode .gallery-detail-container .cover img:hover {
+  filter: blur(0px) !important;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  /* 移除 flex 布局，让内容正常流动 */
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: var(--surface-color);
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+button:hover {
+  border-color: var(--primary-color);
+  background-color: var(--primary-color);
+  color: white;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+.card {
+  padding: 2em;
+}
+
+#app {
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Container */
+.container-responsive {
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+
+/* Images */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
