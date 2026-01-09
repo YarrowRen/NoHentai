@@ -12,7 +12,7 @@ const applyThemeImmediate = (themeValue: Theme) => {
   const isDarkMode = themeValue === 'dark'
   
   // 设置妈妈模式的模糊度 CSS 变量
-  const blurValue = import.meta.env.VITE_MOM_MODE_BLUR || '20px'
+  const blurValue = '20px'
   html.style.setProperty('--mom-mode-blur', blurValue)
   
   if (isDarkMode) {
