@@ -126,7 +126,7 @@ onMounted(() => {
   .nav-menu a {
     color: var(--text-color);
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 900;
     font-size: 14px;
     transition: all 0.3s ease;
     padding: 8px 16px;
